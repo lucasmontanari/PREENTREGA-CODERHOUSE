@@ -1,3 +1,4 @@
+const { Console } = require('console')
 const fs = require('fs')
 
 module.exports= class ContenedorProducto{ //module.exports permite importar la clase en otro archivo usando require
@@ -29,10 +30,10 @@ module.exports= class ContenedorProducto{ //module.exports permite importar la c
         let data = await fs.promises.readFile(`./${this.nombreArchivo}`, 'utf-8')
         data=JSON.parse(data)
         function findID(objeto) { //Funcion para encontrar el objeto con el Id buscado
-            return objeto.id === numeroID;
+            return objeto.id == numeroID;
         }
         if(!data.find(findID)){ //Se usa find para encontrar el objeto buscado
-            return null
+            return `No se encontro el producto con ID:${numeroID}`
         }else{
             return data.find(findID);
         }

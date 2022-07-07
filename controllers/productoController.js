@@ -3,14 +3,26 @@ const productos = new ContenedorProducto("productos.txt")
 let administrador = true
 
 const getProductos = (req, resp) =>{
-    const getAll = async () =>{ //Se hace con funcion Async y Await porque de otra forma me tiraba un objeto vacio
-        try{
-            resp.status(200).json(await productos.getAll())
-        }catch(err){
-            resp.status(500).json(`Error de servidor ${err}`)
+    const id = req.params.id 
+    if(id){
+        const getById = async () =>{ //Se hace con funcion Async y Await porque de otra forma me tiraba un objeto vacio
+            try{
+                resp.status(200).json(await productos.getById(id))
+            }catch(err){
+                resp.status(500).json(`Error de servidor ${err}`)
+            }
         }
+        getById();
+    }else{
+        const getAll = async () =>{ //Se hace con funcion Async y Await porque de otra forma me tiraba un objeto vacio
+            try{
+                resp.status(200).json(await productos.getAll())
+            }catch(err){
+                resp.status(500).json(`Error de servidor ${err}`)
+            }
+        }
+        getAll();
     }
-    getAll();
 }
 
 const postProductos = (req, resp) =>{
